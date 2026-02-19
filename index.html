@@ -869,9 +869,9 @@
             doc.text('Código', 22, yPos - 2);
             doc.text('Producto', 50, yPos - 2);
             doc.text('Cant.', 100, yPos - 2);
-            doc.text('Precio', 125, yPos - 2);
-            doc.text('Desc.%', 150, yPos - 2);
-            doc.text('Total', 170, yPos - 2);
+            doc.text('Precio', 120, yPos - 2);
+	    doc.text('Precio c/Desc', 145, yPos - 2);
+            doc.text('Total', 175, yPos - 2);
 
             doc.setTextColor(0, 0, 0);
             doc.setFont(undefined, 'normal');
@@ -888,7 +888,11 @@
                 doc.text(productName, 50, yPos);
                 doc.text(String(product.cantidad), 100, yPos);
                 doc.text('Q ' + product.precio_unitario.toFixed(2), 125, yPos);
-                doc.text(String(product.descuento_porcentaje) + '%', 150, yPos);
+                // calcular precio con descuento
+		const precioConDescuento = product.descuento_porcentaje > 0
+    		? product.precio_unitario * (1 - product.descuento_porcentaje / 100)
+    		: product.precio_unitario;
+	        doc.text('Q ' + precioConDescuento.toFixed(2), 145, yPos);
                 doc.text('Q ' + product.total.toFixed(2), 170, yPos);
 
                 yPos += 7;
