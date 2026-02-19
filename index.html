@@ -33,6 +33,13 @@
             text-align: center;
             color: white;
             margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .header-content {
+            flex: 1;
         }
 
         .header h1 {
@@ -45,6 +52,21 @@
             margin: 0;
             opacity: 0.9;
             font-size: 1rem;
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .nav-tabs {
@@ -162,7 +184,7 @@
 
         .products-table table {
             width: 100%;
-            min-width: 600px;
+            min-width: 700px;
         }
 
         .products-table th {
@@ -344,6 +366,27 @@
             border: 2px solid #f56565;
         }
 
+        #login {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-card {
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .login-card h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .login-card .form-group {
+            margin-bottom: 1rem;
+        }
+
         @media (max-width: 768px) {
             .content-card {
                 padding: 1.5rem;
@@ -351,6 +394,11 @@
 
             .form-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 1rem;
             }
 
             .header h1 {
@@ -366,41 +414,28 @@
             }
         }
     </style>
-  <style>@view-transition { navigation: auto; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
   <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
-  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
  </head>
  <body>
-<div id="login" class="container">
-  <div class="content-card" style="max-width:400px;margin-top:80px;">
-    <h2 style="text-align:center;margin-bottom:1rem;">🔐 Iniciar sesión</h2>
-
-    <div class="form-group">
-      <label>Email</label>
-      <input type="email" id="login-email" placeholder="correo@empresa.com">
+  <div id="login" class="container">
+   <div class="content-card login-card">
+    <h2>🔐 Iniciar sesión</h2>
+    <div class="form-group"><label>Email</label> <input type="email" id="login-email" placeholder="correo@empresa.com">
     </div>
-
-    <div class="form-group">
-      <label>Contraseña</label>
-      <input type="password" id="login-password" placeholder="••••••••">
-    </div>
-
-    <button class="btn btn-primary" style="width:100%;margin-top:1rem;" onclick="login()">
-      Entrar
-    </button>
-
+    <div class="form-group"><label>Contraseña</label> <input type="password" id="login-password" placeholder="••••••••">
+    </div><button class="btn btn-primary" style="width:100%;margin-top:1rem;" onclick="login()"> Entrar </button>
     <div id="login-error" style="color:#f56565;margin-top:1rem;text-align:center;"></div>
+   </div>
   </div>
-</div>
   <div id="app" class="container" style="display:none;">
    <div class="header">
-    <h1>🏢 Importadora Kairos</h1>
-    <p>Sistema de Gestión de Pedidos</p>
+    <div class="header-content">
+     <h1>🏢 Importadora Kairos</h1>
+     <p>Sistema de Gestión de Pedidos</p>
+    </div><button class="logout-btn" onclick="logout()">🚪 Cerrar sesión</button>
    </div>
-<button class="btn btn-secondary" style="margin-top:1rem;" onclick="logout()">
-  🚪 Cerrar sesión
-</button>
    <div class="nav-tabs"><button class="tab-btn active" onclick="switchTab('create')">Crear Pedido</button> <button class="tab-btn" onclick="switchTab('history')">Historial de Pedidos</button>
    </div>
    <div class="content-card">
@@ -409,24 +444,31 @@
      <div class="form-section">
       <h2>📋 Información del Pedido</h2>
       <div class="form-grid">
-       <div class="form-group"><label for="order-id">Identificador del Pedido</label> <input type="text" id="order-id" placeholder="Ej: PED" value="PED">
+       <div class="form-group">
+        <label for="order-id">Identificador del Pedido</label> <input type="text" id="order-id" placeholder="Ej: PED" value="PED">
        </div>
-       <div class="form-group"><label for="order-date">Fecha</label> <input type="text" id="order-date" disabled>
+       <div class="form-group">
+        <label for="order-date">Fecha</label> <input type="text" id="order-date" disabled>
        </div>
       </div>
      </div>
      <div class="form-section">
       <h2>👤 Información del Cliente</h2>
       <div class="form-grid">
-       <div class="form-group"><label for="customer-name">Nombre del Cliente</label> <input type="text" id="customer-name" placeholder="Ingrese el nombre">
+       <div class="form-group">
+        <label for="customer-name">Nombre del Cliente</label> <input type="text" id="customer-name" placeholder="Ingrese el nombre">
        </div>
-       <div class="form-group"><label for="customer-phone">Teléfono</label> <input type="tel" id="customer-phone" placeholder="Ej: 3649-8391">
+       <div class="form-group">
+        <label for="customer-phone">Teléfono</label> <input type="tel" id="customer-phone" placeholder="Ej: 3649-8391">
        </div>
-       <div class="form-group"><label for="business-name">Nombre del Negocio</label> <input type="text" id="business-name" placeholder="Ingrese el nombre del negocio">
+       <div class="form-group">
+        <label for="business-name">Nombre del Negocio</label> <input type="text" id="business-name" placeholder="Ingrese el nombre del negocio">
        </div>
-       <div class="form-group"><label for="customer-address">Dirección</label> <input type="text" id="customer-address" placeholder="Ingrese la dirección">
+       <div class="form-group">
+        <label for="customer-address">Dirección</label> <input type="text" id="customer-address" placeholder="Ingrese la dirección">
        </div>
-       <div class="form-group"><label for="customer-nit">NIT</label> <input type="text" id="customer-nit" placeholder="Ingrese el NIT">
+       <div class="form-group">
+        <label for="customer-nit">NIT</label> <input type="text" id="customer-nit" placeholder="Ingrese el NIT">
        </div>
       </div>
      </div>
@@ -440,6 +482,7 @@
           <th>Nombre del Producto</th>
           <th>Cantidad</th>
           <th>Precio Unitario (Q)</th>
+          <th>Descuento (%)</th>
           <th>Total (Q)</th>
           <th>Acciones</th>
          </tr>
@@ -450,13 +493,15 @@
       </div><button class="btn btn-secondary" onclick="addProductRow()">+ Agregar Producto</button>
       <div class="totals-section">
        <h3>💰 Resumen del Pedido</h3>
-       <div class="total-row"><span>Subtotal:</span> <span id="subtotal-display">Q 0.00</span>
+       <div class="total-row">
+        <span>Subtotal:</span> <span id="subtotal-display">Q 0.00</span>
        </div>
-       <div class="total-row final"><span>TOTAL:</span> <span id="total-display">Q 0.00</span>
+       <div class="total-row final">
+        <span>TOTAL:</span> <span id="total-display">Q 0.00</span>
        </div>
       </div>
      </div>
-     <div class="action-buttons"><button class="btn btn-success" onclick="saveAndGeneratePDF()">💾 Guardar y Generar PDF</button> <button class="btn btn-primary" onclick="clearForm()">🔄 Limpiar Formulario</button>
+     <div class="action-buttons"><button class="btn btn-success" id="save-btn" onclick="saveAndGeneratePDF()">💾 Guardar y Generar PDF</button> <button class="btn btn-primary" onclick="clearForm()">🔄 Limpiar Formulario</button>
      </div>
     </div>
     <div id="history-tab" class="tab-content">
@@ -496,6 +541,7 @@
         const COMPANY_PHONE = '3649-8391';
 
         let productCounter = 0;
+        let editingOrderNumber = null;
 
         function initializeApp() {
             setCurrentDate();
@@ -549,6 +595,7 @@
                 '<td><input type="text" class="product-name" placeholder="Nombre del producto"></td>' +
                 '<td><input type="number" class="product-quantity" placeholder="0" min="0" oninput="calculateRowTotal(' + productCounter + ')"></td>' +
                 '<td><input type="number" class="product-price" placeholder="0.00" min="0" step="0.01" oninput="calculateRowTotal(' + productCounter + ')"></td>' +
+                '<td><input type="number" class="product-discount" placeholder="0" min="0" max="100" step="0.01" oninput="calculateRowTotal(' + productCounter + ')"></td>' +
                 '<td><input type="text" class="product-total" placeholder="Q 0.00" disabled></td>' +
                 '<td><button class="btn btn-danger" onclick="removeProductRow(' + productCounter + ')">Eliminar</button></td>';
 
@@ -569,7 +616,11 @@
 
             const quantity = parseFloat(row.querySelector('.product-quantity').value) || 0;
             const price = parseFloat(row.querySelector('.product-price').value) || 0;
-            const total = quantity * price;
+            const discount = parseFloat(row.querySelector('.product-discount').value) || 0;
+
+            const subtotal = quantity * price;
+            const discountAmount = subtotal * (discount / 100);
+            const total = subtotal - discountAmount;
 
             row.querySelector('.product-total').value = 'Q ' + total.toFixed(2);
             calculateTotals();
@@ -601,14 +652,21 @@
                 const name = row.querySelector('.product-name').value.trim();
                 const quantity = parseFloat(row.querySelector('.product-quantity').value) || 0;
                 const price = parseFloat(row.querySelector('.product-price').value) || 0;
+                const discount = parseFloat(row.querySelector('.product-discount').value) || 0;
 
                 if (name && quantity > 0 && price > 0) {
+                    const subtotal = quantity * price;
+                    const discountAmount = subtotal * (discount / 100);
+                    const total = subtotal - discountAmount;
+
                     products.push({
                         codigo: code,
                         nombre: name,
                         cantidad: quantity,
                         precio_unitario: price,
-                        total: quantity * price
+                        descuento_porcentaje: discount,
+                        descuento_monto: discountAmount,
+                        total: total
                     });
                     if (code) {
                         codigos.push(code);
@@ -703,9 +761,6 @@
 
             try {
                 const manualId = document.getElementById('order-id').value.trim() || 'PED';
-                const consecutive = await getDailyConsecutive();
-                const orderNumber = generateOrderNumber(manualId, consecutive);
-
                 const customerName = document.getElementById('customer-name').value.trim();
                 const customerPhone = document.getElementById('customer-phone').value.trim();
                 const businessName = document.getElementById('business-name').value.trim();
@@ -715,6 +770,13 @@
                 const productsData = getProductsData();
                 const subtotalValue = parseFloat(document.getElementById('subtotal-display').textContent.replace('Q ', ''));
                 const totalValue = parseFloat(document.getElementById('total-display').textContent.replace('Q ', ''));
+
+                let orderNumber = editingOrderNumber;
+
+                if (!editingOrderNumber) {
+                    const consecutive = await getDailyConsecutive();
+                    orderNumber = generateOrderNumber(manualId, consecutive);
+                }
 
                 const orderData = {
                     order_number: orderNumber,
@@ -729,19 +791,30 @@
                     codigo_products: productsData.codigos.join(', ')
                 };
 
-                const { data, error } = await supabaseClient
-                    .from('Pedidos')
-                    .insert([orderData])
-                    .select();
+                let result;
+                if (editingOrderNumber) {
+                    result = await supabaseClient
+                        .from('Pedidos')
+                        .update(orderData)
+                        .eq('order_number', orderNumber)
+                        .select();
+                } else {
+                    result = await supabaseClient
+                        .from('Pedidos')
+                        .insert([orderData])
+                        .select();
+                }
 
+                const { error } = result;
                 if (error) throw error;
 
-                showMessage('¡Pedido guardado exitosamente!', 'success');
+                showMessage(editingOrderNumber ? '¡Pedido actualizado exitosamente!' : '¡Pedido guardado exitosamente!', 'success');
 
                 await generatePDF(orderNumber, customerName, customerPhone, businessName, customerAddress, customerNit, productsData.products, subtotalValue, totalValue);
 
                 setTimeout(function() {
                     clearForm();
+                    editingOrderNumber = null;
                 }, 2000);
 
             } catch (error) {
@@ -795,8 +868,9 @@
             doc.setFontSize(9);
             doc.text('Código', 22, yPos - 2);
             doc.text('Producto', 50, yPos - 2);
-            doc.text('Cant.', 120, yPos - 2);
-            doc.text('Precio Unit.', 140, yPos - 2);
+            doc.text('Cant.', 100, yPos - 2);
+            doc.text('Precio', 125, yPos - 2);
+            doc.text('Desc.%', 150, yPos - 2);
             doc.text('Total', 170, yPos - 2);
 
             doc.setTextColor(0, 0, 0);
@@ -810,10 +884,11 @@
                 }
 
                 doc.text(product.codigo || '', 22, yPos);
-                const productName = product.nombre.length > 35 ? product.nombre.substring(0, 35) + '...' : product.nombre;
+                const productName = product.nombre.length > 25 ? product.nombre.substring(0, 25) + '...' : product.nombre;
                 doc.text(productName, 50, yPos);
-                doc.text(String(product.cantidad), 120, yPos);
-                doc.text('Q ' + product.precio_unitario.toFixed(2), 140, yPos);
+                doc.text(String(product.cantidad), 100, yPos);
+                doc.text('Q ' + product.precio_unitario.toFixed(2), 125, yPos);
+                doc.text(String(product.descuento_porcentaje) + '%', 150, yPos);
                 doc.text('Q ' + product.total.toFixed(2), 170, yPos);
 
                 yPos += 7;
@@ -853,6 +928,12 @@
 
             calculateTotals();
             setCurrentDate();
+            editingOrderNumber = null;
+
+            const saveBtn = document.getElementById('save-btn');
+            saveBtn.textContent = '💾 Guardar y Generar PDF';
+            saveBtn.style.background = '#48bb78';
+
             showMessage('Formulario limpiado correctamente', 'success');
         }
 
@@ -886,7 +967,7 @@
                             '<td>' + order.customer_name + '</td>' +
                             '<td>' + order.business_name + '</td>' +
                             '<td>Q ' + parseFloat(order.total).toFixed(2) + '</td>' +
-                            '<td><button class="btn btn-primary" onclick="viewOrderDetails(\'' + order.order_number + '\')">Ver Detalles</button></td>';
+                            '<td><button class="btn btn-primary" onclick="editOrder(\'' + order.order_number + '\')">Editar</button> <button class="btn btn-primary" onclick="viewOrderDetails(\'' + order.order_number + '\')">PDF</button></td>';
 
                         tbody.appendChild(row);
                     });
@@ -919,7 +1000,7 @@
 
             } catch (error) {
                 console.error('Error obteniendo detalles:', error);
-                alert('Error al obtener los detalles del pedido');
+                showMessage('Error al obtener los detalles del pedido', 'error');
             }
         }
 
@@ -938,38 +1019,90 @@
                 parseFloat(orderData.total)
             );
         }
-async function login() {
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
-    const errorDiv = document.getElementById('login-error');
 
-    errorDiv.textContent = '';
+        async function editOrder(orderNumber) {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('Pedidos')
+                    .select('*')
+                    .eq('order_number', orderNumber)
+                    .single();
 
-    const { error } = await supabaseClient.auth.signInWithPassword({
-        email,
-        password
-    });
+                if (error) throw error;
 
-    if (error) {
-        errorDiv.textContent = 'Credenciales incorrectas';
-    }
-}
+                if (data) {
+                    editingOrderNumber = orderNumber;
 
-async function logout() {
-    await supabaseClient.auth.signOut();
-}
+                    document.getElementById('order-id').value = data.order_number.split('-')[0];
+                    document.getElementById('customer-name').value = data.customer_name;
+                    document.getElementById('customer-phone').value = '';
+                    document.getElementById('business-name').value = data.business_name;
+                    document.getElementById('customer-address').value = data.customer_address || '';
+                    document.getElementById('customer-nit').value = data.customer_nit || '';
 
-supabaseClient.auth.onAuthStateChange((event, session) => {
-    if (session) {
-        document.getElementById('login').style.display = 'none';
-        document.getElementById('app').style.display = 'block';
-        initializeApp();
-    } else {
-        document.getElementById('login').style.display = 'block';
-        document.getElementById('app').style.display = 'none';
-    }
-});
-        
-    </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c7b6e8295d0b0bf',t:'MTc3MDA1MzU4Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+                    document.getElementById('products-body').innerHTML = '';
+                    productCounter = 0;
+
+                    const products = data.items || [];
+                    products.forEach(function(product) {
+                        addProductRow();
+                        const rows = document.querySelectorAll('#products-body tr');
+                        const lastRow = rows[rows.length - 1];
+                        
+                        lastRow.querySelector('.product-code').value = product.codigo || '';
+                        lastRow.querySelector('.product-name').value = product.nombre || '';
+                        lastRow.querySelector('.product-quantity').value = product.cantidad || '';
+                        lastRow.querySelector('.product-price').value = product.precio_unitario || '';
+                        lastRow.querySelector('.product-discount').value = product.descuento_porcentaje || '0';
+                        
+                        calculateRowTotal(productCounter);
+                    });
+
+                    const saveBtn = document.getElementById('save-btn');
+                    saveBtn.textContent = '✏️ Actualizar Pedido';
+                    saveBtn.style.background = '#ed8936';
+
+                    switchTab('create');
+                    showMessage('Pedido cargado para editar', 'success');
+                }
+
+            } catch (error) {
+                console.error('Error cargando pedido:', error);
+                showMessage('Error al cargar el pedido', 'error');
+            }
+        }
+
+        async function login() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const errorDiv = document.getElementById('login-error');
+
+            errorDiv.textContent = '';
+
+            const { error } = await supabaseClient.auth.signInWithPassword({
+                email,
+                password
+            });
+
+            if (error) {
+                errorDiv.textContent = 'Credenciales incorrectas';
+            }
+        }
+
+        async function logout() {
+            await supabaseClient.auth.signOut();
+        }
+
+        supabaseClient.auth.onAuthStateChange((event, session) => {
+            if (session) {
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('app').style.display = 'block';
+                initializeApp();
+            } else {
+                document.getElementById('login').style.display = 'block';
+                document.getElementById('app').style.display = 'none';
+            }
+        });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cffab1b4167b0b0',t:'MTc3MTQ0MDE4OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
